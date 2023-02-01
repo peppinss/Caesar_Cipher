@@ -1,5 +1,6 @@
 
 alphabet = "abcdefghijklmnopqrstuvwxyz 0123456789:!?,.áéíóúý()"
+from art import logo
 
 
 def shift1():
@@ -18,7 +19,9 @@ def ceasar():
     if direction == "e" or direction == "encode":
         for x in text:
             test1 = alphabet.find(x)
-            if (test1 + shift) > 49:
+            if test1 == -1:
+                encryptedword += x
+            elif (test1 + shift) > 49:
                 encryptedword += alphabet[(test1 + shift) - 50]
             else:
                 encryptedword += alphabet[(test1 + shift)]
@@ -26,7 +29,10 @@ def ceasar():
     else:
         for x in text:
             test1 = alphabet.find(x)
-            encryptedword += alphabet[test1 - shift]
+            if alphabet.find(x) == -1:
+                encryptedword += x
+            else:
+                encryptedword += alphabet[test1 - shift]
         print(encryptedword)
 
 
@@ -41,24 +47,15 @@ def direction1():
 
 
 def text1():
-    test = 0
-    while True:
-        text = input("Type your message:\n").lower()
-        for x in text:
-            if alphabet.find(x) != -1:
-                continue
-            else:
-                test = 1
-        if test == 1:
-            print("Illegal character found. Try again")
-        else:
-            return text
+    text = input("Type your message:\n").lower()
+    return text
 
 
 
 
 if __name__ == '__main__':
     while True:
+        print(logo)
         direction = direction1()
         text = text1()
         shift = shift1()
@@ -67,4 +64,5 @@ if __name__ == '__main__':
         if ancora == "y":
             continue
         if ancora == "n":
+            print("Goodbye")
             break
