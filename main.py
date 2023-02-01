@@ -1,50 +1,70 @@
 
-alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+alphabet = "abcdefghijklmnopqrstuvwxyz 0123456789:!?,.áéíóúý()"
 
 
+def shift1():
+    while True:
+        try:
+            shift = int(input("Type the shift number:\n")) - 1
+            if 0 < shift < 49:
+                return shift
+            else:
+                print("The number must be > 0 and < 49")
+        except:
+            print("It must be a number ofc")
 
-def encrypt():
+def ceasar():
     encryptedword = ""
+    if direction == "e" or direction == "encode":
+        for x in text:
+            test1 = alphabet.find(x)
+            if (test1 + shift) > 49:
+                encryptedword += alphabet[(test1 + shift) - 50]
+            else:
+                encryptedword += alphabet[(test1 + shift)]
+        print(encryptedword)
+    else:
+        for x in text:
+            test1 = alphabet.find(x)
+            encryptedword += alphabet[test1 - shift]
+        print(encryptedword)
 
-    for x in text:
-        test1 = alphabet2.find(x)
-        print(test1,x)
-        if (test1 + shift) > 25:
-            test2 = (test1 + shift) - 26
-            encryptedword += alphabet2[test2]
+
+def direction1():
+    while True:
+        direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n").lower()
+        if direction == "d" or direction == "decode":
+            return direction
+        elif direction == "e" or direction == "decode":
+            return direction
+
+
+
+def text1():
+    test = 0
+    while True:
+        text = input("Type your message:\n").lower()
+        for x in text:
+            if alphabet.find(x) != -1:
+                continue
+            else:
+                test = 1
+        if test == 1:
+            print("Illegal character found. Try again")
         else:
-            encryptedword += alphabet2[(test1 + shift)]
-    print(encryptedword)
+            return text
 
-def decode():
-    encryptedword = ""
-    for x in text:
-        test1 = alphabet2.find(x)
-        test2 = test1 - shift
-        encryptedword += alphabet2[test2]
-    print(encryptedword)
 
 
 
 if __name__ == '__main__':
-    alphabet2 = ""
-    for y in range(26):
-        alphabet2 += alphabet[y]
-    print(alphabet2)
     while True:
-        direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n").lower()
-        text = input("Type your message:\n").lower()
-        shift = int(input("Type the shift number:\n")) -1
-        if direction == "e" or direction == "encode":
-            parola = encrypt()
-        elif direction == "d" or direction == "decode":
-            decode()
-        ancora = input("Vuoi riprovare? Y N\n").lower()
+        direction = direction1()
+        text = text1()
+        shift = shift1()
+        ceasar()
+        ancora = input("Try again?? Y N\n").lower()
         if ancora == "y":
             continue
         if ancora == "n":
             break
-
-
-
-    ##🐛Bug alert: What happens if you try to encode the word 'civilization'?🐛
